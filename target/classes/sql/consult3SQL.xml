@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cti.consult3.model.consult3DAO">
+	<resultMap type="cti.consult3.model.consult3DTO" id="consult3ResultMap">
+		<result property="tele_numb" column="tele_numb" /><!--전문가이관번호  -->
+		<result property="dept_code" column="dept_code" /><!-- URL코드  (SmartDMS)--> 
+		<result property="dept_name" column="dept_name" /><!-- 기관이름 -->
+		<result property="url" column="url" /><!-- url --><!-- url주소 -->
+		
+	</resultMap>
+	<select id="consultlist3" resultMap="consult3ResultMap">
+ <!--외부전문기관 ,SmartDMs-->
+		<!-- oracle : select * from consultuser where ab_name like  '%'||#{ab_name}||'%' -->
+		<![CDATA[SELECT tele_numb,substr(dept_code,0,5)as dept_code,dept_name,url FROM VW_DEPT_INFO_CTI WHERE DEPT_NAME LIKE '%'||#{dept_name}||'%'and (substr(dept_code,6,7) = '00' or substr(dept_code,6,7) = '30')]]>
+
+	</select>
+</mapper>

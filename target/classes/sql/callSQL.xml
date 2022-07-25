@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="call">
+	<!-- <resultMap type="cti.call.model.callDTO" id="callResultMap">
+		<result property="ab_id" column="ab_id" />시퀀스 
+		<result property="ab_station" column="ab_station" />내선번호 
+		<result property="ab_tel" column="ab_tel" />고객번호
+		<result property="ab_type" column="ab_type" />콜 유형
+		<result property="ab_date" column="ab_date" />콜 시간
+		
+	</resultMap> -->
+	<insert id="call_add" parameterType="map" >
+    	insert into tb_call values(seq_tbcall.nextval,#{ab_station},#{ab_tel},#{ab_type},sysdate)
+    </insert>
+</mapper>

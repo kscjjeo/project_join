@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cti.user.model.userDAO">
+	<resultMap type="cti.user.model.userDTO" id="userResultMap">
+		<result property="user_no" column="user_no" />
+		<result property="user_id" column="user_id " />
+		<result property="user_pass" column="user_pass" />
+	</resultMap>
+<!-- 	<select id="namelist" resultMap="userResultMap"> -->
+ 
+<!--         <![CDATA[ SELECT empl_name,dept_name,comp_tenr,work_tenr FROM VW_USER_INFO_CTI WHERE EMPL_NAME LIKE '%'||#{empl_name}||'%']]> -->
+	
+<!-- 	</select> -->
+<!-- 	<select id="get_comp_tenr" resultMap="userResultMap"> -->
+ 
+<!--         SELECT comp_tenr FROM VW_USER_INFO_CTI WHERE emp_id = #{emp_id} -->
+	
+<!-- 	</select> -->
+<!-- 	<insert id="insert_kakao" parameterType="map"> -->
+<!-- 		INSERT INTO TABMNG_TALK  (			 -->
+<!--                        CMP_MSG_ID, MSG_GB, WRT_DTTM, SND_DTTM, SND_PHN_ID, RCV_PHN_ID, CALLBACK, TEMPLATE_CD, KPLUS_ID -->
+<!--                        , SND_MSG, SND_DATA, SMS_ST, RSLT_VAL, CASE_NO, ORG_CD, EMP_ID, UP_CD			 -->
+<!--                        )			 -->
+<!--      	VALUES (		 -->
+<!-- 			(SELECT FN_TABMNG_TALK_ID@LIMS_SMS_LINK(SYSDATE) FROM DUAL)		 -->
+<!-- 			, 'K'		 -->
+<!-- 			, TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')			 -->
+<!-- 			, TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')		 -->
+<!-- 			, ''		 -->
+<!-- 			, REPLACE(#{cust_num},'-','')	 -->
+<!-- 			, '054-810-0132'			 -->
+<!-- 			, 'KLAC9001'			 -->
+<!-- 			,'@대한법률구조공단'			 -->
+<!-- 			,'[법률구조공단] 고객님, 예약하기 버튼을 클릭하시면 예약이 가능합니다.'			 -->
+<!-- 			, ''		 -->
+<!-- 	        , '0'			 -->
+<!-- 	        , '99'			 -->
+<!-- 	        , '2999민가00001'			 -->
+<!-- 	        , '11000'			 -->
+<!-- 	        , '199901010003'			 -->
+<!--                        )			 -->
+<!-- 	</insert> -->
+	
+	<insert id="insert_member" parameterType="map">
+		INSERT INTO MEMBER 
+		(
+			user_id,
+			user_pass,
+			user_name,
+			user_birth,
+			user_phone
+		) 
+		VALUES 
+		(
+			#{user_id},
+			#{user_pass},
+			#{user_name},
+			#{user_birth},
+			#{user_phone}
+		)
+	</insert>
+	
+	<select id="select_member" parameterType="map" resultType="int">
+ 
+		SELECT COUNT(*) FROM MEMBER WHERE user_id = #{user_id}
+	
+	</select>
+	
+	<select id="select_member_pass_check" parameterType="map" resultType="int">
+ 
+		SELECT 
+			COUNT(*) 
+		FROM MEMBER 
+		WHERE 
+			user_id = #{user_id} 
+		AND user_pass = #{user_pass} 
+	
+	</select>
+</mapper>
