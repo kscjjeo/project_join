@@ -66,7 +66,7 @@
 				</tr>
 			</table>
 			<input type="button" value="회원가입입니당" onclick="memberNew()">
-			<input type="button" value="로그인" onclick="memberLogin()"><br>
+			<input type="button" value="로그인입니당" onclick="memberLogin()"><br>
 			<input type="button" value="아이디찾기" onclick="">
 			<input type="button" value="비밀번호찾기" onclick="">
 		</form>
