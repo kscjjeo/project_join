@@ -27,7 +27,7 @@
 					$("#user_id").focus();
 					return;
 				} else if(user_pass == null || user_pass == ''){
-					alert("비밀번호를 입력해주세요.");
+					alert("비밀번호를 입력해주세요..");
 					$("#user_pass").focus();
 					return;
 				} else {
