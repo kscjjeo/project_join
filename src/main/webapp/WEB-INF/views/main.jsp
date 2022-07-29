@@ -8,6 +8,6 @@
 </head>
 <body>
 메인입니당
-<a href="logout">로그아웃</a> 
+<a href="login">로그아웃</a> 
 </body>
 </html>

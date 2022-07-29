@@ -42,6 +42,7 @@
 			$("#user_pass2").focus();
 			return;
 		} else {
+			alert("회원가입이 완료되었습니다.");
 			$("#frmMemeber").submit();
 		} 
 	}
@@ -71,6 +72,7 @@
 				alert("실패");
 			}
 		});
+		
 	}
 </script>
 </head>

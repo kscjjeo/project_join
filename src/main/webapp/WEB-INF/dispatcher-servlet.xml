@@ -111,7 +111,7 @@
 		<!-- <property name="url" value="jdbc:mariadb://localhost:3306/SPOWISE?characterEncoding=UTF-8&amp;" /> -->
 		<property name="url" value="jdbc:mariadb://localhost:3307/TEST?characterEncoding=UTF-8&amp;" />
 		<property name="username" value="root" />
-		<property name="password" value="hisco" />
+		<property name="password" value="tjdcjf89" />
 	</bean> 
 <!-- 	 <bean id="dataSource2" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">  -->
 <!-- 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>  -->

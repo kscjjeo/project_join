@@ -7,6 +7,9 @@
 		<title>PROJECT</title>
 		<script type="text/javascript"      src="./js/jquery-1.11.3.min.js"></script>
 		<script>
+			function findId(){
+				location.href="findId";
+			}
 			function memberNew(){
 				location.href="memberNew";
 			}
@@ -67,7 +70,7 @@
 			</table>
 			<input type="button" value="회원가입입니당" onclick="memberNew()">
 			<input type="button" value="로그인입니당" onclick="memberLogin()"><br>
-			<input type="button" value="아이디찾기" onclick="">
+			<input type="button" value="아이디찾기" onclick="findId()">
 			<input type="button" value="비밀번호찾기" onclick="">
 		</form>
 		

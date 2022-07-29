@@ -1,10 +1,31 @@
 package cti.user.model;
 
 public class userDTO {
-	private int user_no;	/* 회원번호*/
-	private String user_id;	/* 회원아이디 */
-	private String user_pass;	/* 회원패스워드*/
+	public int user_no;	/* 회원번호*/
+	public String user_id;	/* 회원아이디 */
+	public String user_pass;	/* 회원패스워드*/
+	public String user_name;
+	public String user_birth;
+	public String user_phone;
 	
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+	public String getUser_birth() {
+		return user_birth;
+	}
+	public void setUser_birth(String user_birth) {
+		this.user_birth = user_birth;
+	}
+	public String getUser_phone() {
+		return user_phone;
+	}
+	public void setUser_phone(String user_phone) {
+		this.user_phone = user_phone;
+	}
 	public int getUser_no() {
 		return user_no;
 	}
@@ -23,4 +44,5 @@ public class userDTO {
 	public void setUser_pass(String user_pass) {
 		this.user_pass = user_pass;
 	}
+	
 }

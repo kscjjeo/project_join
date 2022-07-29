@@ -27,4 +27,11 @@ public class userDAOImple implements userDAO{
 		int result=sqlMap.selectOne("select_member_pass_check",paramMap);
 		return result;
 	}
+		
+//	아이디 찾기 정보 체크
+	public int select_member_id_information_check(Map<String,Object>paramMap) {
+		int result=sqlMap.selectOne("select_member_id_information_check",paramMap);
+		return result;
+	}
+	
 }
