@@ -117,10 +117,11 @@ public class LoginController {
 		
 		int nameCheck = userdao.select_member_id_information_check(param);	//이름 조회
 		if(nameCheck < 1) {
-			msg = "이름을 다시 확인해주세요.";
+			msg = "기입한 정보의 아이디를 찾을 수 없습니다.";
 		} else {
 			msg = "아이디 찾기 성공";
 			result = "suc";
+			
 		}
 		
 		map.put("msg", msg);

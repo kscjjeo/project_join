@@ -1,55 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="cti.user.model.userDAO" %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>아이디찾기</title>
-<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script>
-	function 
-</script>
+<script  src="./js/jquery-1.11.3.min.js"></script>
 </head>
 <body>
-	
 	<form name="findIdInformationCheck" method="post">
-<!-- String user_name = request.getParameter("user_name");
-String user_birth = request.getParameter("user_birth");
-String user_phone = request.getParameter("user_phone");
-
-userDAO dao = new userDAO();
-String user_id = dao.findId(user_name, user_birth, user_phone);
-
-		if (user_id !=null) {
-
-		 -->
+	<script>
+	userDAO dao = new userDAO();
+	String user_id = dao.findId(user_name, user_birth, user_phone);	
+	String user_name = request.getParameter("user_name");
+	String user_birth = request.getParameter("user_birth");
+	String user_phone = request.getParameter("user_phone");
+	</script>
+	</form>
+	<form name="frmMemeber" method="post">
+ <script> 	if (user_id !=null) { </script>
 		<div class ="container">
 			<div class="found-success">
 				<h4> 회원님의 아이디는 </h4>
-					${ user_id}
+					 <script> ${user_id}</script>
 				<h4> 입니다.</h4>
 				</div>
 				<div class="found-login">
-					<input type="button" id="btnLogin" value="로그인" onClick="login()"/>
+					<input type="button" id="memberlogin" value="로그인" onClick="memberLogin()">
 			</div>
 		</div>
 
-		} else { 
+ <script>		} else { </script>
 
 			<div class="container">
 			<div class="found-fail">
 				<h4> 등록된 정보가 없습니다. </h4>
 			</div>
 			<div class="found-login">
-				<input type="button" id="btnback" value="다시찾기" onClick="history.back()"/>
-				<input type="button" id="btnjoin" value="회원가입" onClick="newMember()"/>
+				<input type="button" value="다시찾기" onClick="history.back()">
+				<input type="button" value="회원가입" onClick="memberNew()">
 			</div>
 			</div>
 	
 
-		}
+ <script>		} </script>
 
 	</form>
 
