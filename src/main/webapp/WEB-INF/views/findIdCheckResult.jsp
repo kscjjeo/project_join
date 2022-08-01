@@ -18,6 +18,12 @@
 	String user_name = request.getParameter("user_name");
 	String user_birth = request.getParameter("user_birth");
 	String user_phone = request.getParameter("user_phone");
+	<%-- 
+	
+	1.request.getParameter는 Java언어임 jsp에서 Java 언어 쓰려면 <% %> 안에 써야함 
+	2.script는 자바스크립트(js) 언어용으로 사용해야함 , js는 String 이런게 없음 보통 var나 const 이렇게씀 ex) var user_id = "ididid";
+	 
+	--%>
 	</script>
 	</form>
 	<form name="frmMemeber" method="post">
@@ -25,7 +31,7 @@
 		<div class ="container">
 			<div class="found-success">
 				<h4> 회원님의 아이디는 </h4>
-					 <script> ${user_id}</script>
+					 <c:out value="${userId}" />
 				<h4> 입니다.</h4>
 				</div>
 				<div class="found-login">

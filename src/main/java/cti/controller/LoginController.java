@@ -99,36 +99,7 @@ public class LoginController {
 		map.get("msg");
 		return map;
 	}
-	/**
-	 * 아이디찾기 처리
-	 * @param request
-	 * @param sess
-	 * @param param
-	 * @return Map
-	 */
-	@RequestMapping(value={"/findIdAction"},method={org.springframework.web.bind.annotation.RequestMethod.POST})
-	@ResponseBody
-	public Map<String, String> findIdAction(HttpServletRequest request,HttpSession sess,@RequestParam Map<String,Object> param){
-		Map<String, String> map = new HashMap<String, String>();
-		
-		
-		String result ="";
-		String msg = "";
-		
-		int nameCheck = userdao.select_member_id_information_check(param);	//이름 조회
-		if(nameCheck < 1) {
-			msg = "기입한 정보의 아이디를 찾을 수 없습니다.";
-		} else {
-			msg = "아이디 찾기 성공";
-			result = "suc";
-			
-		}
-		
-		map.put("msg", msg);
-		map.put("result", result);
-		map.get("msg");
-		return map;
-	}
+	
 	/**
 	 * 회원가입 중복확인 체크
 	 * @param request
@@ -211,10 +182,48 @@ public class LoginController {
 		mv.setViewName("main");
 		return mv;
 	}
+	/**
+	 * 아이디찾기 처리
+	 * @param request
+	 * @param sess
+	 * @param param
+	 * @return Map
+	 */
+	@RequestMapping(value={"/findIdAction"},method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	@ResponseBody
+	public Map<String, String> findIdAction(HttpServletRequest request,HttpSession sess,@RequestParam Map<String,Object> param){
+		Map<String, String> map = new HashMap<String, String>();
+		
+		
+		String result ="";
+		String msg = "";
+		
+		int nameCheck = userdao.select_member_id_information_check(param);	//이름 조회
+		if(nameCheck < 1) {
+			msg = "기입한 정보의 아이디를 찾을 수 없습니다.";
+		} else {
+			msg = "아이디 찾기 성공";
+			result = "suc";
+		}
+		
+		map.put("msg", msg);
+		map.put("result", result);
+		map.get("msg");					//<-- 이거 사용용도는?
+		
+		return map;
+	}
+	/**
+	 * 아이디찾기 결과
+	 * @param request
+	 * @param sess
+	 * @return
+	 */
 	@RequestMapping("/findIdCheckResult")
 	public ModelAndView findIdCheckResult(HttpServletRequest request, HttpSession sess){
 		ModelAndView mv = new ModelAndView();
 		
+		//findIdCheckResult페이지에 넘길 값 - jsp 페이지에서는 <c:out value="${userId}" /> 식으로 사용해야함
+		mv.addObject("userId", "id값");
 		mv.setViewName("findIdCheckResult");
 		return mv;
 	}	

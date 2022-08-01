@@ -67,7 +67,6 @@
 		SELECT COUNT(*) FROM MEMBER WHERE user_id = #{user_id}
 	
 	</select>
-	
 	<select id="select_member_pass_check" parameterType="map" resultType="int">
  
 		SELECT 
@@ -76,6 +75,17 @@
 		WHERE 
 			user_id = #{user_id} 
 		AND user_pass = #{user_pass} 
+	
+	</select>	
+	<select id="select_member_id_information_check" parameterType="map" resultType="int">
+ 
+		SELECT 
+			COUNT(*) 
+		FROM MEMBER 
+		WHERE 
+			user_name = #{user_name} 
+		AND user_birth = #{user_birth}
+		AND user_phone = #{user_phone} 
 	
 	</select>
 </mapper>
