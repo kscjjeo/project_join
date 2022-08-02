@@ -46,7 +46,9 @@
 // 						alert(JSON.stringify(data))
 						alert(data.msg);
 						if(data.result == "suc"){
-							location.href="findIdCheckResult?user_id="+data.user_id;
+							location.href="findIdCheckResult?user_id="+data.user_id+"&result="+data.result;
+						}else{
+							location.href="findIdCheckResult?user_id="+data.user_id+"&result="+data.result;
 						}
 					}
 					,error:function(data){

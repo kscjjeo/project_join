@@ -1,6 +1,7 @@
 package cti.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import cti.user.model.userDAO;
+import cti.user.model.userDTO;
 
 
 @Controller
@@ -194,21 +196,27 @@ public class LoginController {
 	public Map<String, String> findIdAction(HttpServletRequest request,HttpSession sess,@RequestParam Map<String,Object> param){
 		Map<String, String> map = new HashMap<String, String>();
 		
-		
 		String result ="";
 		String msg = "";
+		String user_id = "";
 		
-		int nameCheck = userdao.select_member_id_information_check(param);	//이름 조회
+		List<userDTO> idList = userdao.select_member_id_information_check(param);	//이름 조회
+		System.out.println("idList:"+idList.toString());
+		int nameCheck = idList.size();
+		System.out.println("nameCheck:"+nameCheck);
+		
 		if(nameCheck < 1) {
 			msg = "기입한 정보의 아이디를 찾을 수 없습니다.";
 		} else {
 			msg = "아이디 찾기 성공";
 			result = "suc";
+			user_id = idList.get(0).getUser_id();
+			System.out.println("user_id:"+user_id);
 		}
 		
 		map.put("msg", msg);
 		map.put("result", result);
-		map.get("msg");					//<-- 이거 사용용도는?
+		map.put("user_id", user_id);
 		
 		return map;
 	}
@@ -221,10 +229,16 @@ public class LoginController {
 	@RequestMapping("/findIdCheckResult")
 	public ModelAndView findIdCheckResult(HttpServletRequest request, HttpSession sess){
 		ModelAndView mv = new ModelAndView();
+		System.out.println("call findIdCheckResult");
+		
+		String userId = (String)request.getParameter("user_id");
+		String userResult = (String)request.getParameter("result");
 		
 		//findIdCheckResult페이지에 넘길 값 - jsp 페이지에서는 <c:out value="${userId}" /> 식으로 사용해야함
-		mv.addObject("userId", "id값");
+		mv.addObject("userId", userId);
+		mv.addObject("userResult", userResult);
 		mv.setViewName("findIdCheckResult");
+		
 		return mv;
 	}	
 }

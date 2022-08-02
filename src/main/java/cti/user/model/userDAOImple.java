@@ -1,5 +1,6 @@
 package cti.user.model;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -29,9 +30,10 @@ public class userDAOImple implements userDAO{
 	}
 		
 //	아이디 찾기 정보 체크
-	public int select_member_id_information_check(Map<String,Object>paramMap) {
-		int result=sqlMap.selectOne("select_member_id_information_check",paramMap);
-		return result;
+	public List<userDTO> select_member_id_information_check(Map<String,Object>paramMap) {
+		List<userDTO> list=sqlMap.selectList("select_member_id_information_check",paramMap);
+		
+		return list;
 	}
 	
 }

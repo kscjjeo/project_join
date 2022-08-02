@@ -77,10 +77,10 @@
 		AND user_pass = #{user_pass} 
 	
 	</select>	
-	<select id="select_member_id_information_check" parameterType="map" resultType="int">
+	<select id="select_member_id_information_check" parameterType="map" resultMap="userResultMap">
  
 		SELECT 
-			COUNT(*) 
+			user_id
 		FROM MEMBER 
 		WHERE 
 			user_name = #{user_name} 
