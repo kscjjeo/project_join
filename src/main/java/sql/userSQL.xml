@@ -88,4 +88,35 @@
 		AND user_phone = #{user_phone} 
 	
 	</select>
+	
+	<!-- 시작20220803 추가 -->
+	<!-- 결과 값이 여러개 있을 때 : size > 1 -->
+	<!-- 쿼리 내용 중에  "as"는 별칭을 의미함, 실제로 값을 가져올때 저 이름으로 가져온다는 뜻 	 -->
+	<select id="selectListTest" parameterType="Map" resultType="hashMap">
+	
+		SELECT 
+			user_id as userId ,
+			user_pass as userPass,
+			user_name as userName,
+			user_birth as userBirth,
+			user_phone as userPhone
+		FROM MEMBER 
+		WHERE 1=1
+	</select>
+	
+	<!-- 결과 값이 하나있을 때 : size = 1-->
+	<select id="selectOneTest" resultType="hashMap">
+		SELECT 
+			user_id as userId ,
+			user_pass as userPass,
+			user_name as userName,
+			user_birth as userBirth,
+			user_phone as userPhone
+		FROM MEMBER 
+		WHERE 
+			user_name = #{user_name} 
+		AND user_birth = #{user_birth}
+		AND user_phone = #{user_phone} 
+	</select>
+	<!-- 끝 -->
 </mapper>

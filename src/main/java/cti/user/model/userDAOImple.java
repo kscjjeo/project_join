@@ -1,5 +1,6 @@
 package cti.user.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,4 +37,19 @@ public class userDAOImple implements userDAO{
 		return list;
 	}
 	
+	/*시작 20220803 추가*/
+	//결과 값이 여러개 있을 때 : size > 1
+	public List<Map<String, String>>  selectListTest(Map<String,Object>paramMap) {
+		
+		List<Map<String, String>> list =   sqlMap.selectList("selectListTest", paramMap);
+		return list;
+	}
+	
+	//결과 값이 하나있을 때 : size = 1
+	public HashMap<String, Object>  selectOneTest(Map<String,Object>paramMap) {
+		
+		HashMap<String, Object> list = sqlMap.selectOne("selectOneTest", paramMap);
+		return list;
+	}
+	/*끝*/
 }

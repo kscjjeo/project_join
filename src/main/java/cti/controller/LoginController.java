@@ -201,6 +201,8 @@ public class LoginController {
 		String user_id = "";
 		
 		List<userDTO> idList = userdao.select_member_id_information_check(param);	//이름 조회
+		
+		
 		System.out.println("idList:"+idList.toString());
 		int nameCheck = idList.size();
 		System.out.println("nameCheck:"+nameCheck);
@@ -241,5 +243,47 @@ public class LoginController {
 		
 		return mv;
 	}	
+	
+	//20220803 추가
+	@RequestMapping(value={"/test"},method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	@ResponseBody
+	public Map<String, Object> test(HttpServletRequest request,HttpSession sess,@RequestParam Map<String,Object> param){
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		param.put("user_name", "김성철");
+		param.put("user_birth", "19890922");
+		param.put("user_phone", "01089452059");
+		HashMap returnMap = (HashMap)userdao.selectOneTest(param);
+		if(returnMap != null) {
+			System.out.println("selectOneTest 출력시작----------------------------");
+			System.out.println("아이디 : "+returnMap.get("userId"));
+			System.out.println("비밀번호 : "+returnMap.get("userPass"));
+			System.out.println("성명 : "+returnMap.get("userName"));
+			System.out.println("생년월일 : "+returnMap.get("userBirth"));
+			System.out.println("핸드폰번호 : "+returnMap.get("userPhone"));
+			System.out.println("selectOneTest 출력 끝----------------------------");
+		}
+
+
+		
+		List<Map<String,String>> returnMap2 = userdao.selectListTest(param);
+		
+		System.out.println("selectListTest 출력 시작 ----------------------");
+		for(int i = 0; i < returnMap2.size(); i++) {
+			System.out.println(i+"번째 시작");
+			System.out.println("아이디 : "+returnMap2.get(i).get("userId"));
+			System.out.println("비밀번호 : "+returnMap2.get(i).get("userPass"));
+			System.out.println("성명 : "+returnMap2.get(i).get("userName"));
+			System.out.println("생년월일 : "+returnMap2.get(i).get("userBirth"));
+			System.out.println("핸드폰번호 : "+returnMap2.get(i).get("userPhone"));
+			System.out.println(i+"번째 끝");
+		}
+		
+		System.out.println("selectListTest 출력 끝----------------------------");
+		map.put("oneList", returnMap);
+		map.put("list", returnMap2);
+		return map;
+	}
+	//끝
 }
 

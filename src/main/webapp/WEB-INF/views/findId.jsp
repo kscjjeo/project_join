@@ -57,6 +57,76 @@
 				});
 			} 
 		}
+		
+		function fnTest(){
+			$.ajax({
+				type:"POST"
+				,url:"test"
+				,data:{}
+				,success:function(data){
+					fnSuc(data);
+				}
+				,error:function(data){
+					alert("에러:"+data);
+				}
+			});
+		}
+		function fnSuc(request){
+			var jsonData = request;
+			
+			console.log(jsonData.oneList);
+			console.log(jsonData.list);
+			
+			var tableStr='<table border=1>';
+			var tableEtr='</table>';
+			
+			var tbodb ='';
+			var tbodb2='';
+			tbodb +='<tr>';
+			tbodb +='<th>아이디</th>'
+			tbodb +='<th>비밀번호</th>'
+			tbodb +='<th>성명</th>'
+			tbodb +='<th>생년월일</th>'
+			tbodb +='<th>핸드폰번호</th>'
+			tbodb +='</tr>';
+			
+			tbodb2 = tbodb;
+			
+			if(jsonData.list.length > 0){
+				for(t=0; t<jsonData.list.length; t++){
+					tbodb+='<tr>';
+					tbodb+='<td>'+jsonData.list[t].userId+'</td>';
+					tbodb+='<td>'+jsonData.list[t].userPass+'</td>';
+					tbodb+='<td>'+jsonData.list[t].userName+'</td>';
+					tbodb+='<td>'+jsonData.list[t].userBirth+'</td>';
+					tbodb+='<td>'+jsonData.list[t].userPhone+'</td>';
+					tbodb+='</tr>';
+				}
+			}else{
+				
+				tbodb+='<tr>';
+				tbodb+='<td colspan="5">조회된 데이터가 없습니다.</td>';
+				tbodb+='</tr>';
+			}
+			if(jsonData.oneList){
+				tbodb2+='<tr>';
+				tbodb2+='<td>'+jsonData.oneList.userId+'</td>';
+				tbodb2+='<td>'+jsonData.oneList.userPass+'</td>';
+				tbodb2+='<td>'+jsonData.oneList.userName+'</td>';
+				tbodb2+='<td>'+jsonData.oneList.userBirth+'</td>';
+				tbodb2+='<td>'+jsonData.oneList.userPhone+'</td>';
+				tbodb2+='</tr>';
+			}else{
+				
+				tbodb2+='<tr>';
+				tbodb2+='<td colspan="5">조회된 데이터가 없습니다.</td>';
+				tbodb2+='</tr>';
+			}
+			
+			
+			document.getElementById("resultSet").innerHTML= tableStr + tbodb + tableEtr + tableStr + tbodb2 + tableEtr;  
+			
+		}
 		</script>		
 	</head>
 	<body>
@@ -76,6 +146,10 @@
 				</tr>
 			</table>
 		</form>
+		<div id="resultSet">
+			
+		</div>
 		<input type="button" value="ID찾기" onclick="findIdCheck()">
+		<input type="button" value="test" onclick="fnTest()">
 	</body>
 </html>
