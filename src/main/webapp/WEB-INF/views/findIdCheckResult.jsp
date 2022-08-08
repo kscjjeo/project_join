@@ -7,11 +7,11 @@
 <title>아이디찾기</title>
 <script  type="text/javascript" src="./js/jquery-1.11.3.min.js"></script>
 	<script>
-	function findIdCheckResult(){
+	/* function findIdCheckResult(){
 		var abc = "123";
 		console.log("1234ㅏㄴ첟 ");
 		alert(abc);
-	}
+	} */
 	
 <%-- 
 	
@@ -34,7 +34,7 @@
 					</div>
 					<div class="found-login">
 						<input type="button" id="memberlogin" value="로그인화면" onClick="location.href='login'">
-						<input type="button" name="check" value="비밀번호찾기" onClick="findIdCheckResult()">
+						<input type="button" name="check" value="비밀번호변경" onClick="location.href='passChange'">
 					</div>
 				</div>
 			</c:when>
@@ -51,6 +51,6 @@
 			</c:otherwise>
 		</c:choose>
 	</form>
-	<a href="login">메인페이지로</a> 
+<!-- 	<a href="login">메인페이지로</a>  -->
 </body>
 </html>

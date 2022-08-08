@@ -52,4 +52,9 @@ public class userDAOImple implements userDAO{
 		return list;
 	}
 	/*끝*/
+	// 비밀번호 변경 // 20220808 추가
+	public int update_member_pass(Map<String,Object>paramMap) {
+		int result=sqlMap.update("update_member_pass",paramMap);
+		return result;		
+	}
 }

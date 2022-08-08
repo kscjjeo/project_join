@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -68,7 +69,22 @@ public class LoginController {
 		mv.setViewName("newMember");
 		return mv;
 	}
+	/**
+	 * 비밀번호 변경 
+	 * @param request
+	 * @param sess
+	 * @return
+	 */
+	@RequestMapping("/passChange")
+	public ModelAndView passChange(HttpServletRequest request,HttpSession sess){
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("passChange");
+		return mv;
+	}
 	
+	
+
 	/**
 	 * 로그인 처리
 	 * @param request
@@ -285,5 +301,63 @@ public class LoginController {
 		return map;
 	}
 	//끝
+	
+	// 20220808 추가
+	/**
+	 * 비밀번호변경 처리
+	 * @param request
+	 * @param sess
+	 * @param param
+	 * @return Map
+	 */
+	@RequestMapping(value={"/passChangeAction"},method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	@ResponseBody
+	public Map<String, String> passChangeAction (HttpServletRequest request,HttpSession sess,@RequestParam Map<String,Object> param){
+		Map<String, String> map = new HashMap<String, String>();
+		
+		String result ="";
+		String msg = "";
+		String user_id = "";
+		String user_pass = "";
+		
+//		List<userDTO> idList = userdao.select_member_id_information_check(param);	//이름 조회
+		int pwdChange = userdao.update_member_pass(param);
+		
+		int idCheck = userdao.select_member(param);	//아이디 조회
+		int nameCheck = userdao.select_member(param);	//이름 조회
+		
+		if(idCheck < 1) {
+			msg = "아이디가 없습니다.";
+		} else if(nameCheck < 1) {
+			msg = "이름이 다릅니다.";
+		} else {
+			
+			result = "suc";
+		}
+		
+		map.put("msg", msg);
+		map.put("result", result);
+		map.put("user_pass", user_pass);
+		return map;
+//		
+//		System.out.println("idList:"+idList.toString());
+//		int nameCheck = idList.size();
+//		System.out.println("nameCheck:"+nameCheck);
+//		
+//		if(nameCheck < 1) {
+//			msg = "기입한 정보의 아이디를 찾을 수 없습니다.";
+//		} else {
+//			msg = "아이디 찾기 성공";
+//			result = "suc";
+//			user_id = idList.get(0).getUser_id();
+//			System.out.println("user_id:"+user_id);
+//		}
+//		
+//		map.put("msg", msg);
+//		map.put("result", result);
+//		map.put("user_id", user_id);
+//		
+//		return map;
+	}
 }
 

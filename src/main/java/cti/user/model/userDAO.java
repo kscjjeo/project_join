@@ -11,6 +11,7 @@ public interface userDAO {
 	public int select_member(Map<String,Object>paramMap);
 	public int select_member_pass_check(Map<String,Object>paramMap);
 	public List<userDTO> select_member_id_information_check(Map<String,Object>paramMap);
+	public int update_member_pass(Map<String,Object>paramMap);	// 20220808 추가
 	
 	/*시작 20220803 추가*/
 	public List<Map<String, String>>  selectListTest(Map<String,Object>paramMap);
