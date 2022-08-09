@@ -119,4 +119,15 @@
 		AND user_phone = #{user_phone} 
 	</select>
 	<!-- 끝 -->
+	
+	<update id="update_member_pass" parameterType="map">
+		UPDATE MEMBER
+		 
+		SET 
+			user_pass = #{user_pass}
+			
+		WHERE user_id = #{user_id}
+		AND user_name = #{user_name}
+			
+	</update>
 </mapper>

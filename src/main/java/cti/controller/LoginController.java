@@ -318,13 +318,14 @@ public class LoginController {
 		String result ="";
 		String msg = "";
 		String user_id = "";
+		String user_name = "";
 		String user_pass = "";
 		
 //		List<userDTO> idList = userdao.select_member_id_information_check(param);	//이름 조회
-		int pwdChange = userdao.update_member_pass(param);
 		
 		int idCheck = userdao.select_member(param);	//아이디 조회
 		int nameCheck = userdao.select_member(param);	//이름 조회
+		int pwdChange = userdao.update_member_pass(param);
 		
 		if(idCheck < 1) {
 			msg = "아이디가 없습니다.";
