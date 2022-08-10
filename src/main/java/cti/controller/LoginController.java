@@ -75,11 +75,11 @@ public class LoginController {
 	 * @param sess
 	 * @return
 	 */
-	@RequestMapping("/passChange")
-	public ModelAndView passChange(HttpServletRequest request,HttpSession sess){
+	@RequestMapping("/passInformation")
+	public ModelAndView passInformation(HttpServletRequest request,HttpSession sess){
 		ModelAndView mv = new ModelAndView();
 		
-		mv.setViewName("passChange");
+		mv.setViewName("passInformation");
 		return mv;
 	}
 	
@@ -310,35 +310,44 @@ public class LoginController {
 	 * @param param
 	 * @return Map
 	 */
-	@RequestMapping(value={"/passChangeAction"},method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	@RequestMapping(value={"/passInformationAction"},method={org.springframework.web.bind.annotation.RequestMethod.POST})
 	@ResponseBody
-	public Map<String, String> passChangeAction (HttpServletRequest request,HttpSession sess,@RequestParam Map<String,Object> param){
+	public Map<String, String> passInformationAction (HttpServletRequest request,HttpSession sess,@RequestParam Map<String,Object> param){
 		Map<String, String> map = new HashMap<String, String>();
 		
 		String result ="";
 		String msg = "";
 		String user_id = "";
 		String user_name = "";
-		String user_pass = "";
+		String user_birth = "";
+		String user_phone = "";
 		
+		List<userDTO> idList = userdao.select_member_id_information_check(param);
 //		List<userDTO> idList = userdao.select_member_id_information_check(param);	//이름 조회
 		
 		int idCheck = userdao.select_member(param);	//아이디 조회
 		int nameCheck = userdao.select_member(param);	//이름 조회
-		int pwdChange = userdao.update_member_pass(param);
+		int birthCheck = userdao.select_member(param);	//생일 조회
+		int phoneCheck = userdao.select_member(param);	//전화번호 조회
+//		int pwdChange = userdao.update_member_pass(param);
 		
 		if(idCheck < 1) {
 			msg = "아이디가 없습니다.";
 		} else if(nameCheck < 1) {
 			msg = "이름이 다릅니다.";
+		} else if(birthCheck < 1) {
+			msg = "생년월일이 다릅니다.";
+		} else if(phoneCheck < 1) {
+			msg = "전화번호가 다릅니다.";
 		} else {
 			
 			result = "suc";
+			user_id = idList.get(0).getUser_id();
 		}
 		
-		map.put("msg", msg);
+//		map.put("msg", msg);
 		map.put("result", result);
-		map.put("user_pass", user_pass);
+		map.put("user_id", user_id);
 		return map;
 //		
 //		System.out.println("idList:"+idList.toString());
@@ -359,6 +368,27 @@ public class LoginController {
 //		map.put("user_id", user_id);
 //		
 //		return map;
+	}
+	/**
+	 * 비밀번호찾기 결과
+	 * @param request
+	 * @param sess
+	 * @return
+	 */
+	@RequestMapping("/passChange")
+	public ModelAndView passChange(HttpServletRequest request, HttpSession sess){
+		ModelAndView mv = new ModelAndView();
+		System.out.println("call passChange");
+		
+		String userId2 = (String)request.getParameter("user_id");
+		String userResult2 = (String)request.getParameter("result");
+		
+		//findIdCheckResult페이지에 넘길 값 - jsp 페이지에서는 <c:out value="${userId}" /> 식으로 사용해야함
+		mv.addObject("userId2", userId2);
+		mv.addObject("userResult2", userResult2);
+		mv.setViewName("passChange");
+		
+		return mv;
 	}
 }
 

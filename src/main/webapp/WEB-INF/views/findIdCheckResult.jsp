@@ -34,7 +34,7 @@
 					</div>
 					<div class="found-login">
 						<input type="button" id="memberlogin" value="로그인화면" onClick="location.href='login'">
-						<input type="button" name="check" value="비밀번호변경" onClick="location.href='passChange'">
+						<input type="button" name="check" value="비밀번호변경" onClick="location.href='passInformation'">
 					</div>
 				</div>
 			</c:when>
