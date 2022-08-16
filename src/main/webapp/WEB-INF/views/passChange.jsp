@@ -10,29 +10,19 @@
 		function passChange(){
 			location.href="passChange";
 		}	
-		function enterkey() {
+/* 		function enterkey() {
 	        if (window.event.keyCode == 13) {
 	             // 엔터키가 눌렸을 때 실행할 내용
 	             memberLogin();
 	        }
-		}
+		} */
 		function passCheck(){
-			var id = $("#user_id").val();
-			var name = $("#user_name").val();
+			
 			var pwd = $("#user_pass").val();
 			var pwd2 = $("#user_pass2").val();
 			var regExp = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;	//비밀번호 정규식체크
 			
-			if(id == null || id == ''){
-				alert("아이디를 입력해주세요.");
-				$("#user_id").focus();
-				return;
-			} else if(name == null || name== ''){
-				alert("이름을 입력해주세요.");
-				$("#user_name").focus();
-				return;
-			} else if 
-			(pwd == null || pwd == ''){
+			if  (pwd == null || pwd == ''){
 				alert("패스워드를 입력해주세요.");
 				$("#user_pass").focus();
 				return;
@@ -53,16 +43,15 @@
 					type:"POST"
 					,url:"passChangeAction"
 					,data:{
-						user_id:id,
-						user_name:name,
-						user_pass:pwd 
+						user_pass:pwd,
+						user_pass2:pwd2
 
 						}
 					,success:function(data){
 // 						alert(JSON.stringify(data))
 						if (data.result == "suc"){
 							alert("비밀번호가 변경되었습니다.");
-							
+							location.href="login";
 						}
 					}
 						,error:function(data){
@@ -77,23 +66,15 @@
 		</script>		
 	</head>
 	<body>
-		<form name="frmMemeber" method="post">
-			<table border="1">
-				<tr>
-					<td>아이디</td>
-					<td><input type="text" name="user_id" id="user_id" autocomplete="off" onkeyup="enterkey();"/></td>
-				</tr>
-				<tr>
-					<td>이름</td>
-					<td><input type="text" name="user_name" id="user_name" autocomplete="off" onkeyup="enterkey();"/></td>
-				</tr>
+		<form name="passInformationCheck" method="post">
+ 			<table border="1">
 				<tr>
 					<td>비밀번호 입력</td>
-					<td><input type="text" name="user_pass" id="user_pass" autocomplete="off" onkeyup="enterkey();"/></td>
+					<td><input type="text" name="user_pass" id="user_pass" autocomplete="off" /></td>
 				</tr>
 				<tr>
 					<td>비밀번호 재입력</td>
-					<td><input type="password" name="user_pass2" id="user_pass2" autocomplete="off" onkeyup="enterkey();"/></td>
+					<td><input type="password" name="user_pass2" id="user_pass2" autocomplete="off"/></td>
 				</tr>
 			</table>
 		</form>

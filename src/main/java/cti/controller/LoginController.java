@@ -340,12 +340,12 @@ public class LoginController {
 		} else if(phoneCheck < 1) {
 			msg = "전화번호가 다릅니다.";
 		} else {
-			
+			msg = "비밀번호를 변경해주세요.";
 			result = "suc";
 			user_id = idList.get(0).getUser_id();
 		}
 		
-//		map.put("msg", msg);
+		map.put("msg", msg);
 		map.put("result", result);
 		map.put("user_id", user_id);
 		return map;
@@ -380,15 +380,57 @@ public class LoginController {
 		ModelAndView mv = new ModelAndView();
 		System.out.println("call passChange");
 		
-		String userId2 = (String)request.getParameter("user_id");
-		String userResult2 = (String)request.getParameter("result");
+		String userId = (String)request.getParameter("user_id");
+		String userResult = (String)request.getParameter("result");
 		
 		//findIdCheckResult페이지에 넘길 값 - jsp 페이지에서는 <c:out value="${userId}" /> 식으로 사용해야함
-		mv.addObject("userId2", userId2);
-		mv.addObject("userResult2", userResult2);
+		mv.addObject("userId", userId);
+		mv.addObject("userResult", userResult);
 		mv.setViewName("passChange");
 		
 		return mv;
+	}
+	/**
+	 * 비밀번호 변경 액션
+	 * @param request
+	 * @param sess
+	 * @return
+	 */
+	@RequestMapping(value={"/passChangeAction"},method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	@ResponseBody
+	public Map<String, String> passChangeAction (HttpServletRequest request,HttpSession sess,@RequestParam Map<String,Object> param){
+		Map<String, String> map = new HashMap<String, String>();
+		
+		String result ="";
+		String msg = "";
+		String user_pass = "";
+		String user_pass2 = "";
+		
+//		List<userDTO> idList = userdao.select_member_id_information_check(param);
+		
+//		int idCheck = userdao.select_member(param);	//아이디 조회
+//		int nameCheck = userdao.select_member(param);	//이름 조회
+//		int birthCheck = userdao.select_member(param);	//생일 조회
+//		int phoneCheck = userdao.select_member(param);	//전화번호 조회
+		int pwdChange = userdao.update_member_pass(param);
+		int pwdCheck = userdao.select_member_pass_check(param);
+		System.out.println("pwdChange : "+ pwdChange);
+		System.out.println("pwdCheck : " + pwdCheck);
+		
+		String userPass = (String)request.getParameter("user_pass");
+		String userResult = (String)request.getParameter("result");
+		
+		if(pwdChange == pwdCheck) {
+			msg = "비밀번호가 변경되었습니다.";
+			result = "suc";
+		} else {
+			msg = "비밀번호를 확인해주세요.";
+		}
+		
+		map.put("msg", msg);
+		map.put("userResult", result);
+		map.put("userPass", user_pass);
+		return map;
 	}
 }
 

@@ -36,7 +36,7 @@
 				$("#user_birth").focus();
 				return;
 			} else if(phone == null || phone == ''){
-				alert("전화번호를 확인 입력해주세요.");
+				alert("전화번호를 입력 해주세요.");
 				$("#user_phone").focus();
 				return;
 			} else {
@@ -54,7 +54,7 @@
 // 						alert(JSON.stringify(data))
 						alert(data.msg);
 						if (data.result == "suc"){
-							location.href="passInformation";
+							location.href="passChange";
 						}
 					}
 						,error:function(data){
