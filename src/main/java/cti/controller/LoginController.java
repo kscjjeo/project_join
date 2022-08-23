@@ -340,7 +340,7 @@ public class LoginController {
 		} else if(phoneCheck < 1) {
 			msg = "전화번호가 다릅니다.";
 		} else {
-			msg = "비밀번호를 변경해주세요.";
+			msg = "비밀번호 변경페이지로 넘어갑니다.";
 			result = "suc";
 			user_id = idList.get(0).getUser_id();
 		}
@@ -401,9 +401,9 @@ public class LoginController {
 	public Map<String, String> passChangeAction (HttpServletRequest request,HttpSession sess,@RequestParam Map<String,Object> param){
 		Map<String, String> map = new HashMap<String, String>();
 		
-		String result ="";
+//		String result ="";
 		String msg = "";
-		String user_pass = "";
+//		String user_pass = "";
 		String user_pass2 = "";
 		
 //		List<userDTO> idList = userdao.select_member_id_information_check(param);
@@ -417,8 +417,8 @@ public class LoginController {
 		System.out.println("pwdChange : "+ pwdChange);
 		System.out.println("pwdCheck : " + pwdCheck);
 		
-		String userPass = (String)request.getParameter("user_pass");
-		String userResult = (String)request.getParameter("result");
+		String user_pass = (String)request.getParameter("user_pass");
+		String result = (String)request.getParameter("result");
 		
 		if(pwdChange == pwdCheck) {
 			msg = "비밀번호가 변경되었습니다.";
@@ -428,8 +428,10 @@ public class LoginController {
 		}
 		
 		map.put("msg", msg);
-		map.put("userResult", result);
-		map.put("userPass", user_pass);
+		map.put("result", result);
+		map.put("user_pass", user_pass);
+		System.out.println("pwdChange :" + pwdChange);
+		System.out.println("user_pass : " + user_pass);
 		return map;
 	}
 }
