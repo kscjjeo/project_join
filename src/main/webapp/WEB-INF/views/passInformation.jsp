@@ -54,7 +54,7 @@
 // 						alert(JSON.stringify(data))
 						alert(data.msg);
 						if (data.result == "suc"){
-							location.href="passChange";
+							location.href="passChange?userId="+data.user_id;
 						}
 					}
 						,error:function(data){

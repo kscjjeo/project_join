@@ -13,6 +13,7 @@
 		var pwd = $("#user_pass").val();
 		var pwd2 = $("#user_pass2").val();
 		var name = $("#user_name").val();
+
 			
 		var regExp = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;	//비밀번호 정규식체크
 		
@@ -74,6 +75,34 @@
 		});
 		
 	}
+	function nameCheck(){
+		var user_name = $("#user_name").val();
+		var user_birth = $("#user_birth").val();
+		var user_phone = $("#user_phone").val();
+		var nbp = $("#nbp").val();
+		
+		$.ajax({
+			type:"POST"
+			,url:"nameCheck"
+			,data:{
+				user_name:user_name,
+				user_birth:user_birth,
+				user_phone:user_phone
+			}
+			,success:function(data){
+				alert(data.msg);
+				if(data.result == "suc"){
+					$("#nbp").val("");
+					alert(data.msg);					
+				} 
+			}
+			,error:function(data){
+				alert("가입된 정보가 있습니다.");
+				location.href="findId"
+			}
+		});
+	}
+	
 </script>
 </head>
 <body>
@@ -84,22 +113,23 @@
 				<td><input type="text" name="user_id" id="user_id" /> <input type="button" value="ID중복확인" onclick="idCheck()"/>
 					<input type="hidden" name="idConfirm" id="idConfirm" value="">
 					<input type="hidden" name="idSuc" id="idSuc" value="">
+
 				</td>
 			</tr>
 			<tr>
 				<td>* 패스워드</td>
-				<td><input type="text" name="user_pass" id="user_pass" style="width:97%"/></td>
+				<td><input type="password" name="user_pass" id="user_pass" style="width:97%"/></td>
 			</tr>
 			<tr>
 				<td>* 패스워드 확인</td>
 				<td><input type="password" name="user_pass2" id="user_pass2" style="width:97%"/></td>
 			</tr>
 			<tr>
-				<td>이름</td>
+				<td>* 이름</td>
 				<td><input type="text" name="user_name" id="user_name" style="width:97%"/></td>
 			</tr>
 			<tr>
-				<td>생년월일</td>
+				<td>* 생년월일</td>
 				<td>
 					<select name="user_birth_y" style="width:99px;">
 						<c:forEach var="name" begin="1950" end="2022" varStatus="status">
@@ -120,7 +150,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td>휴대폰 번호</td>
+				<td>* 휴대폰 번호</td>
 				<td>
 					<input type="text" name="user_phone_1" id="user_phone_1" style="width:81px;"/> -
 					<input type="text" name="user_phone_2" id="user_phone_2" style="width:81px;"/> -
@@ -130,5 +160,6 @@
 		</table>
 	</form>
 	<input type="button" value="회원가입" onclick="newMemberCheck()">
+	<input type="hidden" name="nbp" id="nbp" value="">
 </body>
 </html>

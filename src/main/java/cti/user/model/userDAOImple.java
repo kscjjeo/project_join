@@ -24,6 +24,11 @@ public class userDAOImple implements userDAO{
 		int result=sqlMap.selectOne("select_member",paramMap);
 		return result;
 	}
+//	이름 전화번호 생년월일 중복확인
+	public List<userDTO> select_member_nbp(Map<String,Object>paramMap) {
+		List<userDTO> list =sqlMap.selectList("select_member_nbp",paramMap);
+		return list;
+	}
 //	패스워드 체크
 	public int select_member_pass_check(Map<String,Object>paramMap) {
 		int result=sqlMap.selectOne("select_member_pass_check",paramMap);
@@ -34,6 +39,10 @@ public class userDAOImple implements userDAO{
 	public List<userDTO> select_member_id_information_check(Map<String,Object>paramMap) {
 		List<userDTO> list=sqlMap.selectList("select_member_id_information_check",paramMap);
 		
+		return list;
+	}
+	public List<userDTO> select_member_pwd_information_check(Map<String,Object>paramMap) {
+		List<userDTO> list=sqlMap.selectList("select_member_pwd_information_check",paramMap);
 		return list;
 	}
 	

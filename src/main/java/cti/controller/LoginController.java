@@ -142,6 +142,31 @@ public class LoginController {
 		map.put("result", result);
 		return map;
 	}
+	/**
+	 * 회원가입 이름, 생년월일, 전화번호 중복확인 체크
+	 * @param request
+	 * @param sess
+	 * @param param
+	 * @return
+	 */
+	@RequestMapping(value={"/nameCheck"},method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	@ResponseBody
+	public Map<String, String> nameCheck(HttpServletRequest request,HttpSession sess,@RequestParam Map<String,Object> param){
+		Map<String, String> map = new HashMap<String, String>();
+		List<userDTO> nbp = userdao.select_member_nbp(param);
+		String result ="";
+		String msg = "";
+		int nbpCount = nbp.size();
+		if(nbpCount > 0) {
+			msg = "이미 가입한 정보가 있습니다.";
+		} else {
+			result = "suc";
+		}
+		System.out.println("nbpCount:" + nbpCount);
+		map.put("msg", msg);
+		map.put("result", result);
+		return map;
+	}
 	boolean checkString(String str) {
 		  return StringUtils.isEmpty(str);
 	}
@@ -322,7 +347,7 @@ public class LoginController {
 		String user_birth = "";
 		String user_phone = "";
 		
-		List<userDTO> idList = userdao.select_member_id_information_check(param);
+		List<userDTO> pwdList = userdao.select_member_pwd_information_check(param);
 //		List<userDTO> idList = userdao.select_member_id_information_check(param);	//이름 조회
 		
 		int idCheck = userdao.select_member(param);	//아이디 조회
@@ -331,18 +356,16 @@ public class LoginController {
 		int phoneCheck = userdao.select_member(param);	//전화번호 조회
 //		int pwdChange = userdao.update_member_pass(param);
 		
-		if(idCheck < 1) {
-			msg = "아이디가 없습니다.";
-		} else if(nameCheck < 1) {
-			msg = "이름이 다릅니다.";
-		} else if(birthCheck < 1) {
-			msg = "생년월일이 다릅니다.";
-		} else if(phoneCheck < 1) {
-			msg = "전화번호가 다릅니다.";
+		int nameCheck2 = pwdList.size();
+		System.out.println("nameCheck:"+nameCheck2);
+		
+		if(nameCheck2 < 1) {
+			msg = "가입한 정보의 아이디가 없습니다.\n기입한 정보를 확인하여주세요.";
 		} else {
 			msg = "비밀번호 변경페이지로 넘어갑니다.";
 			result = "suc";
-			user_id = idList.get(0).getUser_id();
+			user_id = pwdList.get(0).getUser_id();
+			System.out.println("user_id:"+user_id);
 		}
 		
 		map.put("msg", msg);
@@ -380,12 +403,11 @@ public class LoginController {
 		ModelAndView mv = new ModelAndView();
 		System.out.println("call passChange");
 		
-		String userId = (String)request.getParameter("user_id");
-		String userResult = (String)request.getParameter("result");
+		String userId = (String)request.getParameter("userId");
 		
+		System.out.println("넘어온ID:"+userId);
 		//findIdCheckResult페이지에 넘길 값 - jsp 페이지에서는 <c:out value="${userId}" /> 식으로 사용해야함
 		mv.addObject("userId", userId);
-		mv.addObject("userResult", userResult);
 		mv.setViewName("passChange");
 		
 		return mv;
@@ -401,10 +423,8 @@ public class LoginController {
 	public Map<String, String> passChangeAction (HttpServletRequest request,HttpSession sess,@RequestParam Map<String,Object> param){
 		Map<String, String> map = new HashMap<String, String>();
 		
-//		String result ="";
 		String msg = "";
-//		String user_pass = "";
-		String user_pass2 = "";
+		String result = "";
 		
 //		List<userDTO> idList = userdao.select_member_id_information_check(param);
 		
@@ -413,25 +433,16 @@ public class LoginController {
 //		int birthCheck = userdao.select_member(param);	//생일 조회
 //		int phoneCheck = userdao.select_member(param);	//전화번호 조회
 		int pwdChange = userdao.update_member_pass(param);
-		int pwdCheck = userdao.select_member_pass_check(param);
-		System.out.println("pwdChange : "+ pwdChange);
-		System.out.println("pwdCheck : " + pwdCheck);
 		
-		String user_pass = (String)request.getParameter("user_pass");
-		String result = (String)request.getParameter("result");
-		
-		if(pwdChange == pwdCheck) {
+		if(pwdChange > 0) {
 			msg = "비밀번호가 변경되었습니다.";
 			result = "suc";
 		} else {
-			msg = "비밀번호를 확인해주세요.";
+			msg = "비밀번호 변경을 실패하였습니다.";
 		}
 		
 		map.put("msg", msg);
 		map.put("result", result);
-		map.put("user_pass", user_pass);
-		System.out.println("pwdChange :" + pwdChange);
-		System.out.println("user_pass : " + user_pass);
 		return map;
 	}
 }

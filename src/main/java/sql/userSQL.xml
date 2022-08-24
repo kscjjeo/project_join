@@ -67,6 +67,16 @@
 		SELECT COUNT(*) FROM MEMBER WHERE user_id = #{user_id}
 	
 	</select>
+		<select id="select_member_nbp" parameterType="map" resultType="int">
+ 
+		SELECT COUNT(*) 
+		FROM MEMBER
+		WHERE 
+			user_name = #{user_name}
+		AND user_birth= #{user_birth}
+		AND user_phone= #{user_phone}
+	
+	</select>
 	<select id="select_member_pass_check" parameterType="map" resultType="int">
  
 		SELECT 
@@ -86,6 +96,18 @@
 			user_name = #{user_name} 
 		AND user_birth = #{user_birth}
 		AND user_phone = #{user_phone} 
+	
+	</select>
+	<select id="select_member_pwd_information_check" parameterType="map" resultMap="userResultMap">
+ 
+		SELECT 
+			user_id
+		FROM MEMBER 
+		WHERE 
+			user_name = #{user_name} 
+		AND user_birth = #{user_birth}
+		AND user_phone = #{user_phone}
+		AND user_id = #{user_id} 
 	
 	</select>
 	
@@ -127,9 +149,6 @@
 			user_pass = #{user_pass}
 			
 		WHERE user_id = #{user_id}
-		AND user_name = #{user_name}
-		AND user_birth = #{user_birth}
-		AND user_phone = #{user_phone}
 			
 	</update>
 </mapper>

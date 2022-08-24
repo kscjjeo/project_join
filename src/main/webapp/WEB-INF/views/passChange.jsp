@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
   	<head>
@@ -18,6 +19,7 @@
 		} */
 		function passCheck(){
 			
+			var userId = $("#userId").val();
 			var pwd = $("#user_pass").val();
 			var pwd2 = $("#user_pass2").val();
 			var regExp = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;	//비밀번호 정규식체크
@@ -44,13 +46,13 @@
 					,url:"passChangeAction"
 					,data:{
 						user_pass:pwd,
-						user_pass2:pwd2
+						user_id:userId
 
 						}
 					,success:function(data){
 // 						alert(JSON.stringify(data))
+						alert(data.msg);
 						if (data.result == "suc"){
-							alert("비밀번호가 변경되었습니다.");
 							location.href="login";
 						}
 					}
@@ -66,11 +68,15 @@
 		</script>		
 	</head>
 	<body>
+	
+	<c:out value="${userId }"/>
+		
 		<form name="passInformationCheck" method="post">
+			<input type="hidden" id="userId" value="${userId }">
  			<table border="1">
 				<tr>
 					<td>비밀번호 입력</td>
-					<td><input type="text" name="user_pass" id="user_pass" autocomplete="off" /></td>
+					<td><input type="password" name="user_pass" id="user_pass" autocomplete="off" /></td>
 				</tr>
 				<tr>
 					<td>비밀번호 재입력</td>

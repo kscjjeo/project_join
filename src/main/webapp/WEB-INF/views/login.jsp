@@ -68,8 +68,8 @@
 					<td><input type="password" name="user_pass" id="user_pass" autocomplete="off" onkeyup="enterkey();"/></td>
 				</tr>
 			</table>
-			<input type="button" value="회원가입입니당" onclick="memberNew()">
-			<input type="button" value="로그인입니당" onclick="memberLogin()"><br>
+			<input type="button" value="회원가입" onclick="memberNew()">
+			<input type="button" value="로그인" onclick="memberLogin()"><br>
 			<input type="button" value="아이디찾기" onclick="findId()">
 			<input type="button" value="비밀번호찾기" onclick="location.href='passInformation'">
 		</form>
